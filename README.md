@@ -13,7 +13,7 @@ To **create** or **insert** new data, use the following endpoint:
   "publisher": "Penguin Random House",
   "title": "The Great Gatsby",
   "date": "2024-06-21"
-}"""
+}
 
 
 ```

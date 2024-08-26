@@ -34,13 +34,20 @@ app.get('/', (req, res) => {
 });
 
 //Insert data to the mysql database
+<<<<<<< HEAD
 app.post('/create', (req, res) => {
+=======
+
+app.post('/create', (req, res) => {
+    // Define SQL query with placeholders
+>>>>>>> e4aee19 (Modified code and added delete button)
     const sql = "INSERT INTO book (publisher, name, date) VALUES (?)";
 
     const values = [
         req.body.publisher,
         req.body.name,
         req.body.date
+<<<<<<< HEAD
     ]
 
     db.query(sql, [values], (err, data) => {
@@ -50,6 +57,29 @@ app.post('/create', (req, res) => {
         return res.json(data)
     })
 })
+=======
+    ];
+
+    db.query(sql, [values], (err, result) => {
+        if (err) {
+            return res.status(500).json({ Error: 'Error inserting data' });
+        }
+
+        // Retrieve the ID of the newly inserted row
+        const lastInsertedId = result.insertId;
+
+        const selectSql = "SELECT * FROM book WHERE id = ?";
+
+        db.query(selectSql, [lastInsertedId], (err, rows) => {
+            if (err) {
+                return res.status(500).json({ Error: 'Error retrieving data' });
+            }
+            return res.json(rows[0]);
+        });
+    });
+});
+
+>>>>>>> e4aee19 (Modified code and added delete button)
 
 //To update the code    //whenever updating a record we need to pass ID
 app.put('/update/:id', (req, res) => {
@@ -58,6 +88,7 @@ app.put('/update/:id', (req, res) => {
     const values = [
         req.body.publisher,
         req.body.name,
+<<<<<<< HEAD
         req.body.date
     ]
     const id = req.params.id;
@@ -80,6 +111,52 @@ app.delete('/delete/:id', (req, res) => {
         return res.json(data)
     })
 })
+=======
+        req.body.date,
+        req.params.id  
+    ];
+
+    db.query(sql, values, (err, result) => {
+        if (err) {
+            return res.status(500).json({ Error: 'Error updating data' });
+        }
+
+        // Check if any row was actually updated
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Error: 'Record not found' });
+        }
+
+        const selectSql = "SELECT * FROM book WHERE id = ?";
+        db.query(selectSql, [req.params.id], (err, rows) => {
+            if (err) {
+                return res.status(500).json({ Error: 'Error retrieving updated data' });
+            }
+            return res.json(rows[0]);
+        });
+    });
+});
+
+
+//To delete a record
+app.delete('/delete/:id', (req, res) => {
+    const id = req.params.id;
+
+    const sql = "DELETE FROM book WHERE id = ?";
+    
+    db.query(sql, [id], (err, result) => {
+        if (err) {
+            return res.status(500).json({ Error: 'Error deleting data' });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ Error: 'Record not found' });
+        }
+
+        return res.json({ message: 'Record deleted successfully' });
+    });
+});
+
+>>>>>>> e4aee19 (Modified code and added delete button)
 
 app.listen(3030, () => {
     console.log("App is running")

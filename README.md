@@ -11,7 +11,7 @@ To **create** or **insert** new data, use the following endpoint:
 ```json
 {
   "publisher": "Penguin Random House",
-  "title": "The Great Gatsby",
+  "name": "The Great Gatsby",
   "date": "2024-06-21"
 }
 
@@ -30,13 +30,13 @@ To **fetch** or **read** data, use the following endpoint:
   {
     "date": "Thu, 01 Aug 2024 00:00:00 GMT",
     "id": 6,
-    "title": "To Kill a Mockingbird",
+    "name": "To Kill a Mockingbird",
     "publisher": "HarperCollins"
   },
   {
     "date": "Fri, 21 Jun 2024 00:00:00 GMT",
     "id": 10,
-    "title": "The Great Gatsby",
+    "name": "The Great Gatsby",
     "publisher": "Penguin Random House"
   }
 ] 
@@ -54,7 +54,7 @@ To **update** existing data, use the following endpoint:
 ```json
 {
   "publisher": "Scribner",
-  "title": "The Great Gatsby (Revised Edition)",
+  "name": "The Great Gatsby (Revised Edition)",
   "date": "2024-07-01"
 }
 
